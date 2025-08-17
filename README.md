@@ -1,37 +1,78 @@
-![WATTIO](http://wattio.com.br/web/image/1204-212f47c3/Logo%20Wattio.png)
+# API de Filmes 
 
-#### Descrição
+> **CRUD de filmes desenvolvido com FastAPI, Docker e orientação a objetos**
 
-O desafio consiste em implementar um CRUD de filmes, utilizando [python](https://www.python.org/ "python") integrando com uma API REST e uma possível persistência de dados.
+## Execução Rápida
 
-Rotas da API:
+### Docker (Recomendado)
+```bash
+git clone https://github.com/TheRookie100/backend
+cd backend
+docker-compose up --build -d
+```
 
- - `/filmes` - [GET] deve retornar todos os filmes cadastrados.
- - `/filmes` - [POST] deve cadastrar um novo filme.
- - `/filmes/{id}` -  [GET] deve retornar o filme com ID especificado.
+### Python Local
+```bash
+git clone https://github.com/TheRookie100/backend
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
+```
 
-O Objetivo é te desafiar e reconhecer seu esforço para aprender e se adaptar. Qualquer código enviado, ficaremos muito felizes e avaliaremos com toda atenção!
+## Endpoints
 
-#### Sugestão de Ferramentas 
-Não é obrigatório utilizar todas as as tecnologias sugeridas, mas será um diferencial =]
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/filmes` | Lista todos os filmes |
+| `POST` | `/filmes` | Cadastra novo filme |
+| `GET` | `/filmes/{id}` | Retorna filme por ID |
 
-- Orientação a objetos (utilizar objetos, classes para manipular os filmes)
-- [FastAPI](https://fastapi.tiangolo.com/) (API com documentação auto gerada)
-- [Docker](https://www.docker.com/) / [Docker-compose](https://docs.docker.com/compose/install/) (Aplicação deverá ficar em um container docker, e o start deverá seer com o comando ``` docker-compose up ```
-- Integração com banco de dados (persistir as informações em json (iniciante) /[SqLite](https://www.sqlite.org/index.html) / [SQLAlchemy](https://fastapi.tiangolo.com/tutorial/sql-databases/#sql-relational-databases) / outros DB)
+## Teste Rápido
 
+```powershell
+# Criar filme
+$filme = @{
+    titulo = "Matrix"
+    genero = "Acao" 
+    ano = 1999
+    diretor = "Wachowski Sisters"
+    duracao = 136
+} | ConvertTo-Json
 
-#### Como começar?
+Invoke-RestMethod -Uri "http://localhost:8000/filmes" -Method Post -Body $filme -Headers @{'Content-Type'='application/json'}
 
-- Fork do repositório
-- Criar branch com seu nome ``` git checkout -b feature/ana ```
-- Faça os commits de suas alterações ``` git commit -m "[ADD] Funcionalidade" ```
-- Envie a branch para seu repositório ``` git push origin feature/ana ```
-- Navegue até o [Github](https://github.com/), crie seu Pull Request apontando para a branch **```main```**
-- Atualize o README.md descrevendo como subir sua aplicação
+# Listar filmes
+Invoke-RestMethod -Uri "http://localhost:8000/filmes" -Method Get
+```
 
-#### Dúvidas?
+## Documentação
 
-Qualquer dúvida / sugestão / melhoria / orientação adicional só enviar email para hendrix@wattio.com.br
+- **API Docs:** http://localhost:8000/docs
+- **ReDoc:** http://localhost:8000/redoc
 
-Salve!
+## Arquitetura
+
+```
+backend/
+├── app/
+│   ├── main.py      # API FastAPI
+│   ├── models.py    # Validação Pydantic
+│   ├── services.py  # Lógica de negócio
+│   └── security.py  # Rate limiting
+├── data/            # Persistência JSON
+├── Dockerfile       # Container
+└── docker-compose.yml
+```
+
+## Tecnologias
+
+- **FastAPI** - Framework web
+- **Pydantic** - Validação de dados
+- **Docker** - Containerização
+- **JSON** - Persistência simples
+
+---
+
+**Desenvolvido por TheRookie100 - Branch: feature/guilherme**
