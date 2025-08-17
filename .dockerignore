@@ -1,0 +1,9 @@
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Security
+.env
+.env.local
+secrets/
