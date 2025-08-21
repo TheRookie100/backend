@@ -5,19 +5,31 @@
 ## Execução Rápida
 
 ### Docker (Recomendado)
-```bash
-git clone https://github.com/TheRookie100/backend
+```powershell
+# Clonar repositório (execute de qualquer diretório)
+git clone -b feature/guilherme https://github.com/TheRookie100/backend
 cd backend
+
+# Iniciar Docker Desktop primeiro, depois executar:
 docker-compose up --build -d
 ```
 
 ### Python Local
-```bash
-git clone https://github.com/TheRookie100/backend
+```powershell
+# Clonar repositório (execute de qualquer diretório) 
+git clone -b feature/guilherme https://github.com/TheRookie100/backend
 cd backend
+
+# Criar ambiente virtual
 python -m venv .venv
-.venv\Scripts\activate
+
+# Ativar ambiente virtual
+.\.venv\Scripts\Activate.ps1
+
+# Instalar dependências
 pip install -r requirements.txt
+
+# Executar aplicação
 uvicorn app.main:app --reload --port 8000
 ```
 
